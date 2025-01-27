@@ -12,12 +12,13 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const users = Object.keys(userState);
-      const randomUser = users[Math.floor(Math.random() * userState.length)];
-      setUserState((pre) => ({
-        ...pre,
-        [randomUser]: !pre[randomUser],
-      }));
+      setUserState((pre) => {
+        const updatedState = {};
+        Object.keys(pre).forEach((user) => {
+          updatedState[user] = Math.random() < 0.5; 
+        });
+        return updatedState;
+      });
     }, 2000);
     return () => clearInterval(interval);
   }, [userState]);
